@@ -3,7 +3,7 @@ package common;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LRUCache {
+public class LRUCache_146 {
 
     Map<Integer, Node> map;
 
@@ -11,15 +11,14 @@ public class LRUCache {
 
     int cap;
 
-    public LRUCache(int capacity) {
+    public LRUCache_146(int capacity) {
+        cap = capacity;
         map = new HashMap<>();
         cache = new DoubleList();
-        cap = capacity;
     }
 
     public int get(int key) {
         if (!map.containsKey(key)) return -1;
-
         Node node = map.get(key);
         cache.remove(node);
         cache.addLast(node);
@@ -30,19 +29,21 @@ public class LRUCache {
         if (map.containsKey(key)) {
             Node node = map.get(key);
             cache.remove(node);
-            map.remove(key);
 
-            Node x = new Node(key, value);
-            map.put(key, x);
-            cache.addLast(x);
+            Node newNode = new Node(key, value);
+            cache.addLast(newNode);
+            map.put(key, newNode);
+            return;
         }
-        if (cap == cache.size) {
+
+        if (cache.size == cap) {
             Node node = cache.removeFirst();
             map.remove(node.key);
         }
-        Node x = new Node(key, value);
-        map.put(key, x);
-        cache.addLast(x);
+
+        Node node = new Node(key, value);
+        map.put(key, node);
+        cache.addLast(node);
     }
 
     class Node {
@@ -57,6 +58,7 @@ public class LRUCache {
 
     class DoubleList {
         Node head, tail;
+
         int size;
 
         public DoubleList() {
@@ -82,8 +84,7 @@ public class LRUCache {
         }
 
         public Node removeFirst() {
-            if (head == tail) return null;
-
+            if (head.next == null) return null;
             Node first = head.next;
             remove(first);
             return first;
