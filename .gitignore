@@ -28,6 +28,7 @@ hs_err_pid*
 
 # IntelliJ project files
 .idea
+.fleet
 *.iml
 out
 gen
