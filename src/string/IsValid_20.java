@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Stack;
 
 /**
- * <a href="https://leetcode.cn/problems/longest-substring-without-repeating-characters/">3. 无重复字符的最长子串</a>
+ * <a href="https://leetcode.cn/problems/valid-parentheses/">20. 有效的括号</a>
  */
 public class IsValid_20 {
 
