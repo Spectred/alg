@@ -1,60 +1,56 @@
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.StringJoiner;
+import struct.ListNode;
+
+import java.util.*;
+
 
 public class Main {
+
+
     public static void main(String[] args) {
-        String str = "jdbc:postgresql://pgm-2zefg365218mep8uho.pg.rds.aliyuncs.com:1921/ycw_dw?currentSchema=yftestapinv&TimeZone=Asia/Shanghai&stringtype=unspecified";
-        String substring = str.substring(str.indexOf("=") + 1, str.indexOf("&"));
-        System.out.println(substring);
+        Scanner in = new Scanner(System.in);
+        String line0 = in.nextLine(); // 5 3
+        String[] s = line0.split(" ");
+        int x = Integer.parseInt(s[0]);
+        int y = Integer.parseInt(s[1]);
 
-    }
+        String[][] martix = new String[x][y];
+        for (int i = 0; i < x; i++) {
+            String linei = in.nextLine();
+            martix[i] = linei.split(" ");
+        }
+        String lastLine = in.nextLine();
+        String[] vars = lastLine.split(":");
+        String[] start = vars[0].split("");
+        String[] end = vars[1].split("");
 
-    public List<List<Integer>> threeSum(int[] nums) {
-        Arrays.sort(nums);
-        return nSum(nums, 3, 0, 0);
-    }
+        int colStart = (int) (start[0].toCharArray()[0]) - 65;
+        int rowStart = Integer.parseInt(start[1]); // 2
 
-    public List<List<Integer>> nSum(int[] nums, int n, int start, int target) {
-        List<List<Integer>> res = new ArrayList<>();
-        int size = nums.length;
-
-        if (n < 2 || n > size) return res;
-
-        if (n == 2) {
-            int lo = start, hi = size - 1;
-            while (lo < hi) {
-                int left = nums[lo], right = nums[hi],
-                        sum = left + right;
-                if (sum < target)
-                    while (lo < hi && nums[lo] == left)
-                        lo++;
-                else if (sum > target)
-                    while (lo < hi && nums[hi] == right)
-                        hi--;
-                else {
-                    res.add(new ArrayList<>(Arrays.asList(left, right)));
-                    while (lo < hi && nums[lo] == left)
-                        lo++;
-                    while (lo < hi && nums[hi] == right)
-                        hi--;
+        int colEnd = (int) (end[0].toCharArray()[0]) - 65;
+        int rowEnd = Integer.parseInt(end[1]);
+        int sum = 0;
+        for (int i = colStart; i <= colEnd; i++) {
+            for (int j = rowStart - 1; j <= rowEnd - 1; j++) {
+                if (j >= martix.length || i >= martix[0].length) {
+                    continue;
                 }
-            }
-        } else {
-            for (int i = start; i < size; i++) {
-                List<List<Integer>> sub =
-                        nSum(nums, n - 1, i + 1, target - nums[i]);
-                for (List<Integer> arr : sub) {
-                    arr.add(nums[i]);
-                    res.add(arr);
+                String num = martix[j][i];
+                if (num.startsWith("=")) {
+                    // 是一个公式,计算公式的值 如 A1+C1
+                    sum += 0;
+                } else {
+                    sum += Integer.parseInt(num);
                 }
-                while (i < size - 1 && nums[i] == nums[i + 1])
-                    i++;
             }
         }
+        System.out.println(sum);
+    }
 
-        return res;
+    private static int getNumber(String[][] martix, String pos) {
+        String[] vars = pos.split("");
+        int col = (int) (vars[0].toCharArray()[0]) - 65;
+        int row = Integer.parseInt(vars[1]);
+        String num = martix[row][col];
+        return Integer.parseInt(num);
     }
 }
