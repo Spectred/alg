@@ -15,5 +15,14 @@ public class ArrayQueue {
         n = capacity;
     }
 
-    public bo
+    public boolean enqueue(Object item) {
+        if (tail == n) return false;
+        items[tail++] = items;
+        return true;
+    }
+
+    public Object dequeue() {
+        if (head == tail) return null;
+        return items[head++];
+    }
 }
