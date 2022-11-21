@@ -1,28 +1,12 @@
+package listnode;
+
 import struct.ListNode;
 
-public class Main {
-
-
-    public static void main(String[] args) {
-        int[] vals = {1, 2, 3, 4, 3, 2, 1};
-        ListNode[] listNodes = new ListNode[vals.length];
-        for (int i = 0; i < listNodes.length; i++) {
-            listNodes[i] = new ListNode(vals[i]);
-        }
-        for (int i = 0; i < listNodes.length; i++) {
-            if (i == listNodes.length - 1)
-                listNodes[i].next = null;
-            else
-                listNodes[i].next = listNodes[i + 1];
-        }
-
-        ListNode head = listNodes[0];
-
-        boolean pari = palindrome(head);
-        System.out.println(pari);
-    }
-
-    private static boolean palindrome(ListNode head) {
+/**
+ * <a href="https://leetcode.cn/problems/palindrome-linked-list/">234. 回文链表</a>
+ */
+public class IsPalindrome_234 {
+    public boolean isPalindrome(ListNode head) {
         // 快满指针寻找终点
         ListNode slow = head, fast = head, curr = head;
         while (fast != null && fast.next != null) {
@@ -49,6 +33,4 @@ public class Main {
         head.next = null;
         return last;
     }
-
-
 }
