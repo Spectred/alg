@@ -31,4 +31,10 @@ public class BuildTree_105 {
         root.right = build(preorder, preStart + leftSize + 1, preEnd, inorder, index + 1, index - 1);
         return root;
     }
+
+    public static void main(String[] args) {
+        int[] preorder = {3, 9, 20, 16, 7};
+        int[] inorder = {9, 3, 15, 20, 7};
+        new BuildTree_105().buildTree(preorder, inorder);
+    }
 }
